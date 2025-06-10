@@ -32,7 +32,7 @@ export async function GET(request: Request) {
         // 逗号分隔格式
         parsedIds = tagIds.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
       }
-    } catch (error) {
+    } catch {
       return NextResponse.json({
         error: 'Failed to parse tag IDs',
         originalInput: tagIds
