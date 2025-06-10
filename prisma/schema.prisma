@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model gm_account {
+  id                Int    @id @default(autoincrement())
+  name              String
+  username          String @db.VarChar(250)
+  password          String @db.VarChar(250)
+  admin             String @default("0")
+  email             String @db.VarChar(250)
+  avatar_id         Int
+  xp                Int
+  language          String @db.VarChar(250)
+  profile_theme     String @default("style-1") @db.VarChar(250)
+  ip                String @db.VarChar(250)
+  registration_date Int
+  last_logged       Int
+  last_update_info  Int
+  active            String
+}
+
+model gm_ads {
+  id        Int    @id
+  x90       String @map("728x90") @db.VarChar(700)
+  x250      String @map("300x250") @db.VarChar(700)
+  x300      String @map("600x300") @db.VarChar(700)
+  x90_main  String @map("728x90_main") @db.VarChar(700)
+  x250_main String @map("300x250_main") @db.VarChar(700)
+  ads_video String @db.VarChar(700)
+}
+
+model gm_blogs {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(100)
+  url          String    @db.VarChar(100)
+  image_url    String?   @db.VarChar(200)
+  post         String?
+  date_created DateTime? @db.Date
+}
+
+model gm_categories {
+  id                 Int     @id @default(autoincrement())
+  category_pilot     String  @db.VarChar(250)
+  name               String
+  image              String  @db.VarChar(400)
+  footer_description String? @default("")
+  show_home          Int     @default(0) @db.SmallInt
+  total_games        Int?    @default(0)
+}
+
+model gm_chatgpt {
+  id                       Int     @id @default(autoincrement())
+  api_key                  String? @db.VarChar(200)
+  template_game            String?
+  template_category        String?
+  template_tags            String?
+  template_footer          String?
+  random_words_before_tags String? @db.VarChar(1000)
+  random_words_after_tags  String? @db.VarChar(1000)
+  chatgpt_model            String  @default("gpt-3.5-turbo") @db.VarChar(100)
+  maximum_words            Int     @default(0)
+}
+
+model gm_footer_description {
+  id            Int     @id @default(autoincrement())
+  page_name     String  @db.VarChar(100)
+  page_url      String  @db.VarChar(100)
+  description   String
+  has_content   String  @default("0")
+  content_value String? @default("")
+}
+
+model gm_games {
+  game_id          Int     @id @default(autoincrement())
+  catalog_id       String  @db.VarChar(250)
+  game_name        String  @db.VarChar(250)
+  name             String  @db.VarChar(250)
+  image            String  @db.VarChar(500)
+  import           String  @default("0")
+  category         Int
+  plays            Int
+  rating           String  @default("0")
+  description      String
+  instructions     String  @db.VarChar(600)
+  file             String  @db.VarChar(500)
+  game_type        String  @db.VarChar(250)
+  w                Int
+  h                Int
+  date_added       Int
+  published        String
+  featured         String  @default("0")
+  mobile           Int
+  featured_sorting String  @db.VarChar(255)
+  field_1          String  @db.VarChar(500)
+  field_2          String  @db.VarChar(500)
+  field_3          String  @db.VarChar(500)
+  field_4          String  @db.VarChar(500)
+  field_5          String  @db.VarChar(500)
+  field_6          String  @db.VarChar(500)
+  field_7          String  @db.VarChar(500)
+  field_8          String  @db.VarChar(500)
+  field_9          String  @db.VarChar(500)
+  field_10         String  @db.VarChar(500)
+  tags_ids         String?
+  video_url        String? @db.VarChar(100)
+  is_last_rewrite  Int     @default(0) @db.SmallInt
+  wt_video         String? @db.VarChar(255)
+}
+
+model gm_media {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(250)
+  extension String @default("none") @db.VarChar(250)
+  type      String @default("none") @db.VarChar(250)
+  url       String @db.VarChar(250)
+}
+
+model gm_setting {
+  id                   Int     @id @default(autoincrement())
+  site_name            String  @db.VarChar(500)
+  site_url             String  @db.VarChar(500)
+  site_theme           String  @db.VarChar(500)
+  site_description     String  @default("Best Free Online Games") @db.VarChar(500)
+  site_keywords        String  @default("games, online, arcade, html5, gamemonetize") @db.VarChar(500)
+  ads_status           String  @default("0")
+  ad_time              Int     @default(10)
+  language             String  @db.VarChar(250)
+  featured_game_limit  Int
+  mp_game_limit        Int
+  xp_play              Int
+  xp_report            Int
+  xp_register          Int
+  plays                Int
+  custom_game_feed_url String? @db.VarChar(1000)
+  settings_1           String  @db.VarChar(500)
+  settings_2           String  @db.VarChar(500)
+  settings_3           String  @db.VarChar(500)
+  settings_4           String  @db.VarChar(500)
+  settings_5           String  @db.VarChar(500)
+  settings_6           String  @db.VarChar(500)
+  settings_7           String  @db.VarChar(500)
+  settings_8           String  @db.VarChar(500)
+  settings_9           String  @db.VarChar(500)
+  settings_10          String  @db.VarChar(500)
+  recaptcha_site_key   String? @db.VarChar(100)
+  recaptcha_secret_key String? @db.VarChar(100)
+  is_sidebar_enabled   Int     @default(0) @db.SmallInt
+}
+
+model gm_sidebar {
+  id               Int     @id @default(autoincrement())
+  name             String  @db.VarChar(100)
+  type             String  @db.VarChar(100)
+  category_tags_id Int?
+  custom_link      String? @db.VarChar(100)
+  icon             String? @db.VarChar(100)
+  ordering         String  @default("999") @db.VarChar(3)
+}
+
+model gm_sliders {
+  id               Int    @id @default(autoincrement())
+  type             String @db.VarChar(100)
+  category_tags_id Int
+  ordering         Int
+}
+
+model gm_tags {
+  id                 Int     @id @default(autoincrement())
+  url                String  @db.VarChar(100)
+  name               String  @db.VarChar(100)
+  footer_description String? @default("")
+  is_last_rewrite    Int     @default(0) @db.SmallInt
+  is_rewrited        Int     @default(0) @db.SmallInt
+  show_home          Int     @default(0) @db.SmallInt
+  total_games        Int?    @default(0)
+}
+
+model gm_theme {
+  theme_id    Int    @id @default(autoincrement())
+  theme_class String @db.VarChar(250)
+}
+
+model gm_users {
+  user_id Int    @id
+  gender  String @default("1")
+  about   String
+}
+
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
