@@ -107,31 +107,31 @@ export default function Home() {
                       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                       {gamesData.games.map((game) => (
-                        <Link 
+                      <Link 
                           key={game.game_id} 
                           href={`/game/${game.game_name}`}
-                          className="group relative bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                        >
-                          <div className="relative w-full" style={{ height: '150px' }}>
-                            <Image
-                              src={game.image}
+                        className="group relative bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                      >
+                        <div className="relative w-full" style={{ height: '150px' }}>
+        <Image
+                            src={game.image}
                               alt={`Play ${game.name} - Free Online Game at ColombiaGame`}
-                              fill
-                              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, (max-width: 1280px) 20vw, 16vw"
-                              className="object-cover transition-transform duration-300 group-hover:scale-110"
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, (max-width: 1280px) 20vw, 16vw"
+                            className="object-cover transition-transform duration-300 group-hover:scale-110"
                               priority={game.game_id <= 12}
-                            />
-                            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                               <h2 className="text-white text-sm font-medium p-2 truncate">
                                 {game.name}
                               </h2>
-                            </div>
                           </div>
-                        </Link>
-                      ))}
-                    </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                   )}
 
                   {/* 分页导航 */}
@@ -159,17 +159,17 @@ export default function Home() {
                             ...
                           </span>
                         ) : (
-                          <Link
+                        <Link
                             key={`page-${page}`}
                             href={page === 1 ? '/' : `/page/${page}`}
-                            className={`px-3 py-1.5 rounded transition-colors ${
-                              page === currentPage
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                            }`}
-                          >
-                            {page}
-                          </Link>
+                          className={`px-3 py-1.5 rounded transition-colors ${
+                            page === currentPage
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                          }`}
+                        >
+                          {page}
+                        </Link>
                         )
                       ))}
                     </div>

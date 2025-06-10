@@ -31,7 +31,7 @@ const GameTags = ({ currentTag }: GameTagsProps) => {
   return (
     <div className="flex flex-wrap gap-2 pb-4 px-4">
       {tags.map((tag) => (
-        <Link
+            <Link
           key={tag.id}
           href={`/tag/${tag.url}`}
           className={`px-3 py-1 text-sm rounded-full transition-colors ${
@@ -44,7 +44,7 @@ const GameTags = ({ currentTag }: GameTagsProps) => {
           {tag.total_games && tag.total_games > 0 && (
             <span className="ml-1 text-xs opacity-60">({tag.total_games})</span>
           )}
-        </Link>
+            </Link>
       ))}
     </div>
   );
