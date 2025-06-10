@@ -66,7 +66,7 @@ export default function FAQ() {
               Still Have Questions?
             </h2>
             <p className="mb-4">
-              We're here to help! Contact our support team and we'll get back to you as soon as possible.
+              We&apos;re here to help! Contact our support team and we&apos;ll get back to you as soon as possible.
             </p>
             <a 
               href="mailto:support@colombiagame.online"
