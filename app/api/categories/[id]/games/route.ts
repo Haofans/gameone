@@ -1,14 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = request.nextUrl;
   const page = Number(searchParams.get('page')) || 1;
   const pageSize = 90;
-  const categoryId = Number(params.id);
+  const categoryId = Number(context.params.id);
 
   try {
     // Check if category exists
