@@ -1,23 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = request.nextUrl;
-  const page = Number(searchParams.get('page')) || 1;
-  const pageSize = 90;
-  const categoryId = Number(context.params.id);
-
   try {
+    const { searchParams } = request.nextUrl;
+    const page = Number(searchParams.get('page')) || 1;
+    const pageSize = 90;
+    const categoryId = Number(params.id);
+
+    if (isNaN(categoryId)) {
+      return NextResponse.json(
+        { error: 'Invalid category ID' },
+        { status: 400 }
+      );
+    }
+
     // Check if category exists
     const category = await prisma.gm_categories.findUnique({
       where: { id: categoryId }
     });
 
     if (!category) {
-      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Category not found' },
+        { status: 404 }
+      );
     }
 
     // Get total games count for this category
@@ -63,7 +74,16 @@ export async function GET(
       }
     });
   } catch (error) {
-    console.error('Error fetching category games:', error);
-    return NextResponse.json({ error: 'Failed to fetch category games' }, { status: 500 });
+    console.error('Error in category games API:', error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return NextResponse.json(
+        { error: 'Database operation failed' },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 } 
